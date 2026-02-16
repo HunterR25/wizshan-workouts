@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day Total Body Fitness Plan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .progress-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 12px 25px;
+            border: none;
+            background: #f0f0f0;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .day-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+        }
+        
+        .day-card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+        
+        .day-card.completed {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+        
+        .day-card.rest-day {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+        
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .day-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .day-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .exercise-list {
+            margin: 15px 0;
+        }
+        
+        .exercise-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .exercise-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        .exercise-details {
+            flex: 1;
+        }
+        
+        .exercise-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+        }
+        
+        .exercise-specs {
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        
+        .measurements-form {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+        
+        .week-section {
+            margin-bottom: 30px;
+        }
+        
+        .week-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .tips-section {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .tips-section h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+        
+        .tips-section ul {
+            margin-left: 20px;
+        }
+        
+        .tips-section li {
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .focus-badge {
+            display: inline-block;
+            background: #ff4081;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💪 30-Day Total Body Fitness Plan</h1>
+            <p class="subtitle">Core Focus: Abs • Obliques • Back | Lower Body: Thighs • Glutes</p>
+        </header>
+        
+        <div class="progress-section">
+            <h2>Your Progress</h2>
+            <div class="progress-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="daysCompleted">0</span>
+                    <span class="stat-label">Days Completed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="workoutsCompleted">0</span>
+                    <span class="stat-label">Workouts Done</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="completionRate">0%</span>
+                    <span class="stat-label">Completion Rate</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="currentStreak">0</span>
+                    <span class="stat-label">Day Streak</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('schedule')">📅 Workout Schedule</button>
+            <button class="tab-btn" onclick="showTab('measurements')">📊 Measurements</button>
+            <button class="tab-btn" onclick="showTab('tips')">💡 Tips & Nutrition</button>
+        </div>
+        
+        <div id="schedule" class="tab-content active">
+            <div id="workoutSchedule"></div>
+        </div>
+        
+        <div id="measurements" class="tab-content">
+            <div class="measurements-form">
+                <h2>Track Your Measurements</h2>
+                <p style="color: #666; margin-bottom: 20px;">Record your measurements weekly to track progress!</p>
+                
+                <div class="form-group">
+                    <label>Date:</label>
+                    <input type="date" id="measurementDate">
+                </div>
+                
+                <div class="form-group">
+                    <label>Weight (kg):</label>
+                    <input type="number" step="0.1" id="weight" placeholder="e.g., 65.5">
+                </div>
+                
+                <div class="form-group">
+                    <label>Waist (cm):</label>
+                    <input type="number" step="0.1" id="waist" placeholder="e.g., 75">
+                </div>
+                
+                <div class="form-group">
+                    <label>Hips (cm):</label>
+                    <input type="number" step="0.1" id="hips" placeholder="e.g., 95">
+                </div>
+                
+                <div class="form-group">
+                    <label>Thighs (cm):</label>
+                    <input type="number" step="0.1" id="thighs" placeholder="e.g., 55">
+                </div>
+                
+                <button class="btn-primary" onclick="saveMeasurement()">Save Measurement</button>
+                
+                <div id="measurementHistory" style="margin-top: 30px;"></div>
+            </div>
+        </div>
+        
+        <div id="tips" class="tab-content">
+            <div class="tips-section">
+                <h3>🎯 Workout Tips for Best Results</h3>
+                <ul>
+                    <li><strong>Warm up:</strong> Always spend 5-10 minutes warming up (light cardio, dynamic stretches)</li>
+                    <li><strong>Form over speed:</strong> Focus on proper form rather than rushing through exercises</li>
+                    <li><strong>Progressive overload:</strong> Gradually increase difficulty by adding reps or time</li>
+                    <li><strong>Rest days are crucial:</strong> Your muscles need recovery time to grow stronger</li>
+                    <li><strong>Stay hydrated:</strong> Drink water before, during, and after workouts</li>
+                    <li><strong>Consistency is key:</strong> Missing one day won't ruin progress, but make it the exception</li>
+                </ul>
+                
+                <h3 style="margin-top: 25px;">🥗 Nutrition Guidelines</h3>
+                <ul>
+                    <li><strong>Protein intake:</strong> Aim for 1.6-2.2g per kg of body weight daily</li>
+                    <li><strong>Reduce refined carbs:</strong> Focus on whole grains, vegetables, and fruits</li>
+                    <li><strong>Healthy fats:</strong> Include avocados, nuts, olive oil, and fatty fish</li>
+                    <li><strong>Caloric deficit for fat loss:</strong> Aim for 300-500 calorie deficit from maintenance</li>
+                    <li><strong>Meal timing:</strong> Eat protein within 2 hours after workout for recovery</li>
+                    <li><strong>Limit processed foods:</strong> Focus on whole, nutrient-dense foods</li>
+                </ul>
+                
+                <h3 style="margin-top: 25px;">📝 Notes on Fat Loss</h3>
+                <ul>
+                    <li>Spot reduction (losing fat from specific areas) isn't possible - overall fat loss is needed</li>
+                    <li>Core exercises will strengthen and tone muscles, making them more visible as fat decreases</li>
+                    <li>Combine this workout plan with proper nutrition for best results</li>
+                    <li>Take progress photos every week - sometimes visual changes appear before scale changes</li>
+                    <li>Aim to lose 0.5-1kg per week for sustainable, healthy fat loss</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const workoutPlan = [
+            // Week 1: Foundation Building
+            {
+                day: 1,
+                week: 1,
+                title: "Core Foundation",
+                focus: "Abs & Obliques",
+                exercises: [
+                    { name: "Plank", specs: "3 sets × 30 seconds", category: "core" },
+                    { name: "Russian Twists", specs: "3 sets × 20 reps (10 each side)", category: "obliques" },
+                    { name: "Bicycle Crunches", specs: "3 sets × 15 reps", category: "abs" },
+                    { name: "Dead Bug", specs: "3 sets × 12 reps", category: "core" },
+                    { name: "Side Plank (each side)", specs: "3 sets × 20 seconds", category: "obliques" }
+                ]
+            },
+            {
+                day: 2,
+                week: 1,
+                title: "Lower Body Power",
+                focus: "Glutes & Thighs",
+                exercises: [
+                    { name: "Bodyweight Squats", specs: "4 sets × 15 reps", category: "glutes" },
+                    { name: "Glute Bridges", specs: "3 sets × 20 reps", category: "glutes" },
+                    { name: "Lunges (alternating)", specs: "3 sets × 12 reps each leg", category: "thighs" },
+                    { name: "Side Leg Raises", specs: "3 sets × 15 reps each leg", category: "thighs" },
+                    { name: "Wall Sit", specs: "3 sets × 30 seconds", category: "thighs" }
+                ]
+            },
+            {
+                day: 3,
+                week: 1,
+                title: "Back & Core Combo",
+                focus: "Back & Abs",
+                exercises: [
+                    { name: "Superman Hold", specs: "3 sets × 20 seconds", category: "back" },
+                    { name: "Bird Dog", specs: "3 sets × 12 reps each side", category: "back" },
+                    { name: "Mountain Climbers", specs: "3 sets × 30 seconds", category: "core" },
+                    { name: "Reverse Crunches", specs: "3 sets × 15 reps", category: "abs" },
+                    { name: "High Plank Shoulder Taps", specs: "3 sets × 20 reps", category: "core" }
+                ]
+            },
+            {
+                day: 4,
+                week: 1,
+                title: "Active Recovery",
+                rest: true,
+                exercises: [
+                    { name: "Light Walking", specs: "20-30 minutes", category: "cardio" },
+                    { name: "Stretching Routine", specs: "15 minutes", category: "flexibility" },
+                    { name: "Foam Rolling", specs: "10 minutes (focus on sore areas)", category: "recovery" }
+                ]
+            },
+            {
+                day: 5,
+                week: 1,
+                title: "Full Body Burn",
+                focus: "Total Body",
+                exercises: [
+                    { name: "Burpees", specs: "3 sets × 10 reps", category: "cardio" },
+                    { name: "Plank to Downward Dog", specs: "3 sets × 12 reps", category: "core" },
+                    { name: "Jump Squats", specs: "3 sets × 12 reps", category: "glutes" },
+                    { name: "Standing Oblique Crunches", specs: "3 sets × 15 reps each side", category: "obliques" },
+                    { name: "Donkey Kicks", specs: "3 sets × 15 reps each leg", category: "glutes" }
+                ]
+            },
+            {
+                day: 6,
+                week: 1,
+                title: "Core Intensive",
+                focus: "Abs & Obliques",
+                exercises: [
+                    { name: "Plank Variations (front, side)", specs: "3 sets × 40 seconds total", category: "core" },
+                    { name: "Heel Touches", specs: "3 sets × 20 reps", category: "obliques" },
+                    { name: "Leg Raises", specs: "3 sets × 12 reps", category: "abs" },
+                    { name: "Windshield Wipers", specs: "3 sets × 10 reps each side", category: "obliques" },
+                    { name: "V-Ups", specs: "3 sets × 10 reps", category: "abs" }
+                ]
+            },
+            {
+                day: 7,
+                week: 1,
+                title: "Rest Day",
+                rest: true,
+                exercises: [
+                    { name: "Complete Rest or Light Yoga", specs: "Optional 20-30 minutes", category: "recovery" }
+                ]
+            },
+            
+            // Week 2: Intensity Increase
+            {
+                day: 8,
+                week: 2,
+                title: "Core Strength++",
+                focus: "Abs & Obliques",
+                exercises: [
+                    { name: "Plank", specs: "3 sets × 45 seconds", category: "core" },
+                    { name: "Russian Twists (with weight)", specs: "3 sets × 25 reps", category: "obliques" },
+                    { name: "Bicycle Crunches", specs: "4 sets × 20 reps", category: "abs" },
+                    { name: "Dead Bug", specs: "3 sets × 15 reps", category: "core" },
+                    { name: "Side Plank with Hip Dips", specs: "3 sets × 10 reps each side", category: "obliques" }
+                ]
+            },
+            {
+                day: 9,
+                week: 2,
+                title: "Lower Body Sculpt",
+                focus: "Glutes & Thighs",
+                exercises: [
+                    { name: "Sumo Squats", specs: "4 sets × 18 reps", category: "glutes" },
+                    { name: "Single-Leg Glute Bridges", specs: "3 sets × 15 reps each leg", category: "glutes" },
+                    { name: "Walking Lunges", specs: "3 sets × 15 reps each leg", category: "thighs" },
+                    { name: "Fire Hydrants", specs: "3 sets × 20 reps each leg", category: "glutes" },
+                    { name: "Calf Raises", specs: "3 sets × 20 reps", category: "legs" }
+                ]
+            },
+            {
+                day: 10,
+                week: 2,
+                title: "Back & Core Power",
+                focus: "Back & Abs",
+                exercises: [
+                    { name: "Superman with Arm Raises", specs: "3 sets × 15 reps", category: "back" },
+                    { name: "Bird Dog (slower tempo)", specs: "3 sets × 15 reps each side", category: "back" },
+                    { name: "Mountain Climbers", specs: "4 sets × 40 seconds", category: "core" },
+                    { name: "Reverse Crunches", specs: "3 sets × 18 reps", category: "abs" },
+                    { name: "Plank Jacks", specs: "3 sets × 15 reps", category: "core" }
+                ]
+            },
+            {
+                day: 11,
+                week: 2,
+                title: "Active Recovery",
+                rest: true,
+                exercises: [
+                    { name: "Swimming or Cycling", specs: "20-30 minutes light", category: "cardio" },
+                    { name: "Dynamic Stretching", specs: "15 minutes", category: "flexibility" },
+                    { name: "Core Breathing Exercises", specs: "10 minutes", category: "recovery" }
+                ]
+            },
+            {
+                day: 12,
+                week: 2,
+                title: "HIIT Total Body",
+                focus: "Total Body",
+                exercises: [
+                    { name: "Burpees", specs: "4 sets × 12 reps", category: "cardio" },
+                    { name: "Plank to Pike", specs: "3 sets × 15 reps", category: "core" },
+                    { name: "Squat Pulses", specs: "3 sets × 20 reps", category: "glutes" },
+                    { name: "Cross-Body Mountain Climbers", specs: "3 sets × 20 reps", category: "obliques" },
+                    { name: "Frog Pumps", specs: "3 sets × 20 reps", category: "glutes" }
+                ]
+            },
+            {
+                day: 13,
+                week: 2,
+                title: "Oblique Focus",
+                focus: "Obliques & Sides",
+                exercises: [
+                    { name: "Side Plank with Rotation", specs: "3 sets × 12 reps each side", category: "obliques" },
+                    { name: "Russian Twists", specs: "4 sets × 30 reps", category: "obliques" },
+                    { name: "Bicycle Crunches", specs: "3 sets × 25 reps", category: "abs" },
+                    { name: "Side Leg Lifts", specs: "3 sets × 20 reps each side", category: "obliques" },
+                    { name: "Standing Side Crunches", specs: "3 sets × 15 reps each side", category: "obliques" }
+                ]
+            },
+            {
+                day: 14,
+                week: 2,
+                title: "Rest Day",
+                rest: true,
+                exercises: [
+                    { name: "Meditation & Stretching", specs: "20-30 minutes", category: "recovery" }
+                ]
+            },
+            
+            // Week 3: Peak Performance
+            {
+                day: 15,
+                week: 3,
+                title: "Advanced Core",
+                focus: "Abs & Obliques",
+                exercises: [
+                    { name: "Plank with Alternating Leg Lifts", specs: "3 sets × 20 reps", category: "core" },
+                    { name: "Weighted Russian Twists", specs: "4 sets × 30 reps", category: "obliques" },
+                    { name: "Toe Touches", specs: "3 sets × 20 reps", category: "abs" },
+                    { name: "Hollow Body Hold", specs: "3 sets × 30 seconds", category: "core" },
+                    { name: "Oblique V-Ups", specs: "3 sets × 12 reps each side", category: "obliques" }
+                ]
+            },
+            {
+                day: 16,
+                week: 3,
+                title: "Lower Body Max",
+                focus: "Glutes & Thighs",
+                exercises: [
+                    { name: "Bulgarian Split Squats", specs: "3 sets × 12 reps each leg", category: "glutes" },
+                    { name: "Hip Thrusts", specs: "4 sets × 20 reps", category: "glutes" },
+                    { name: "Curtsy Lunges", specs: "3 sets × 15 reps each leg", category: "thighs" },
+                    { name: "Clamshells", specs: "3 sets × 25 reps each side", category: "glutes" },
+                    { name: "Squat Holds", specs: "3 sets × 45 seconds", category: "thighs" }
+                ]
+            },
+            {
+                day: 17,
+                week: 3,
+                title: "Back Sculpting",
+                focus: "Back & Core",
+                exercises: [
+                    { name: "Prone Y-T-W Raises", specs: "3 sets × 10 reps each position", category: "back" },
+                    { name: "Swimmers", specs: "3 sets × 30 seconds", category: "back" },
+                    { name: "Spiderman Planks", specs: "3 sets × 15 reps each side", category: "core" },
+                    { name: "Back Extensions", specs: "3 sets × 18 reps", category: "back" },
+                    { name: "Plank Walks", specs: "3 sets × 10 reps", category: "core" }
+                ]
+            },
+            {
+                day: 18,
+                week: 3,
+                title: "Active Recovery",
+                rest: true,
+                exercises: [
+                    { name: "Pilates or Yoga Flow", specs: "30 minutes", category: "flexibility" },
+                    { name: "Gentle Cardio", specs: "15 minutes", category: "cardio" },
+                    { name: "Full Body Stretching", specs: "15 minutes", category: "recovery" }
+                ]
+            },
+            {
+                day: 19,
+                week: 3,
+                title: "High Intensity Circuit",
+                focus: "Total Body",
+                exercises: [
+                    { name: "Jump Burpees", specs: "4 sets × 15 reps", category: "cardio" },
+                    { name: "Plank Up-Downs", specs: "3 sets × 20 reps", category: "core" },
+                    { name: "Jump Lunges", specs: "3 sets × 12 reps each leg", category: "glutes" },
+                    { name: "Plank Knee to Elbow", specs: "3 sets × 20 reps", category: "obliques" },
+                    { name: "Glute Kickbacks", specs: "3 sets × 20 reps each leg", category: "glutes" }
+                ]
+            },
+            {
+                day: 20,
+                week: 3,
+                title: "Core Definition",
+                focus: "Abs & Obliques",
+                exercises: [
+                    { name: "Extended Plank", specs: "3 sets × 60 seconds", category: "core" },
+                    { name: "Starfish Crunches", specs: "3 sets × 20 reps", category: "abs" },
+                    { name: "Side Plank Crunches", specs: "3 sets × 15 reps each side", category: "obliques" },
+                    { name: "Flutter Kicks", specs: "3 sets × 40 seconds", category: "abs" },
+                    { name: "Bicycle Twists", specs: "3 sets × 30 reps", category: "obliques" }
+                ]
+            },
+            {
+                day: 21,
+                week: 3,
+                title: "Rest Day",
+                rest: true,
+                exercises: [
+                    { name: "Light Activity or Complete Rest", specs: "Optional", category: "recovery" }
+                ]
+            },
+            
+            // Week 4: Final Push
+            {
+                day: 22,
+                week: 4,
+                title: "Core Mastery",
+                focus: "Abs & Obliques",
+                exercises: [
+                    { name: "Plank Complex (5 variations)", specs: "3 sets × 30 sec each variation", category: "core" },
+                    { name: "Weighted Russian Twists", specs: "4 sets × 35 reps", category: "obliques" },
+                    { name: "Dragon Flags (modified)", specs: "3 sets × 8 reps", category: "abs" },
+                    { name: "Ab Wheel Rollouts (on knees)", specs: "3 sets × 12 reps", category: "core" },
+                    { name: "Side Plank Star", specs: "3 sets × 12 reps each side", category: "obliques" }
+                ]
+            },
+            {
+                day: 23,
+                week: 4,
+                title: "Lower Body Finale",
+                focus: "Glutes & Thighs",
+                exercises: [
+                    { name: "Pistol Squats (assisted)", specs: "3 sets × 10 reps each leg", category: "glutes" },
+                    { name: "Single-Leg Hip Thrusts", specs: "4 sets × 15 reps each leg", category: "glutes" },
+                    { name: "Lateral Lunges", specs: "3 sets × 15 reps each side", category: "thighs" },
+                    { name: "Glute Bridge March", specs: "3 sets × 20 reps", category: "glutes" },
+                    { name: "Squat Jumps", specs: "3 sets × 15 reps", category: "glutes" }
+                ]
+            },
+            {
+                day: 24,
+                week: 4,
+                title: "Total Back & Core",
+                focus: "Back & Abs",
+                exercises: [
+                    { name: "Reverse Snow Angels", specs: "3 sets × 15 reps", category: "back" },
+                    { name: "Advanced Bird Dog", specs: "3 sets × 20 reps each side", category: "back" },
+                    { name: "Plank to Side Plank Rotation", specs: "3 sets × 12 reps each side", category: "core" },
+                    { name: "Good Mornings", specs: "3 sets × 20 reps", category: "back" },
+                    { name: "Commando Planks", specs: "3 sets × 15 reps", category: "core" }
+                ]
+            },
+            {
+                day: 25,
+                week: 4,
+                title: "Active Recovery",
+                rest: true,
+                exercises: [
+                    { name: "Light Cardio Activity", specs: "20 minutes", category: "cardio" },
+                    { name: "Deep Stretching Session", specs: "20 minutes", category: "flexibility" },
+                    { name: "Self-Massage", specs: "10 minutes", category: "recovery" }
+                ]
+            },
+            {
+                day: 26,
+                week: 4,
+                title: "Ultimate HIIT",
+                focus: "Total Body",
+                exercises: [
+                    { name: "Tuck Jump Burpees", specs: "4 sets × 15 reps", category: "cardio" },
+                    { name: "Side Plank Hip Dips", specs: "3 sets × 20 reps each side", category: "obliques" },
+                    { name: "Explosive Lunges", specs: "3 sets × 15 reps each leg", category: "glutes" },
+                    { name: "Plank with Knee Tucks", specs: "3 sets × 25 reps", category: "core" },
+                    { name: "Broad Jumps", specs: "3 sets × 12 reps", category: "glutes" }
+                ]
+            },
+            {
+                day: 27,
+                week: 4,
+                title: "Final Core Challenge",
+                focus: "Abs & Obliques",
+                exercises: [
+                    { name: "5-Minute Plank Challenge", specs: "1 set (break as needed)", category: "core" },
+                    { name: "100 Russian Twists", specs: "1 set", category: "obliques" },
+                    { name: "Decline Sit-Ups", specs: "3 sets × 20 reps", category: "abs" },
+                    { name: "Hanging Knee Raises (or lying)", specs: "3 sets × 15 reps", category: "abs" },
+                    { name: "Side Bend Holds", specs: "3 sets × 30 sec each side", category: "obliques" }
+                ]
+            },
+            {
+                day: 28,
+                week: 4,
+                title: "Rest Day",
+                rest: true,
+                exercises: [
+                    { name: "Restorative Yoga", specs: "30 minutes", category: "recovery" }
+                ]
+            },
+            {
+                day: 29,
+                week: 4,
+                title: "Full Body Power",
+                focus: "Total Body",
+                exercises: [
+                    { name: "Circuit: Burpees, Squats, Planks, Lunges", specs: "4 rounds × 15 reps each", category: "total" },
+                    { name: "Mountain Climber Complex", specs: "3 sets × 45 seconds", category: "core" },
+                    { name: "Glute Bridge to Crunch", specs: "3 sets × 20 reps", category: "total" },
+                    { name: "Side Plank with Reach Through", specs: "3 sets × 12 reps each side", category: "obliques" },
+                    { name: "Jump Squats", specs: "3 sets × 20 reps", category: "glutes" }
+                ]
+            },
+            {
+                day: 30,
+                week: 4,
+                title: "Final Assessment",
+                focus: "Total Body Test",
+                exercises: [
+                    { name: "Max Plank Hold", specs: "Test your maximum time", category: "core" },
+                    { name: "Max Push-Ups", specs: "Test your maximum reps", category: "total" },
+                    { name: "Max Squats", specs: "Test your maximum reps (1 min)", category: "glutes" },
+                    { name: "Final Measurements", specs: "Retake all body measurements", category: "assessment" },
+                    { name: "Progress Photos", specs: "Compare with Day 1 photos", category: "assessment" }
+                ]
+            }
+        ];
+        
+        let progress = JSON.parse(localStorage.getItem('workoutProgress')) || {};
+        let measurements = JSON.parse(localStorage.getItem('measurements')) || [];
+        
+        function renderWorkoutSchedule() {
+            const container = document.getElementById('workoutSchedule');
+            let html = '';
+            
+            for (let week = 1; week <= 4; week++) {
+                html += `<div class="week-section">`;
+                html += `<div class="week-header">Week ${week}</div>`;
+                
+                const weekWorkouts = workoutPlan.filter(w => w.week === week);
+                weekWorkouts.forEach(workout => {
+                    const isCompleted = progress[`day${workout.day}`] === true;
+                    const cardClass = workout.rest ? 'day-card rest-day' : (isCompleted ? 'day-card completed' : 'day-card');
+                    
+                    html += `<div class="${cardClass}">`;
+                    html += `<div class="day-header">`;
+                    html += `<div>`;
+                    html += `<div class="day-title">Day ${workout.day}: ${workout.title}`;
+                    if (workout.focus) {
+                        html += `<span class="focus-badge">${workout.focus}</span>`;
+                    }
+                    html += `</div>`;
+                    html += `</div>`;
+                    html += `<div class="day-badge">${workout.rest ? '🧘 Rest Day' : '💪 Workout'}</div>`;
+                    html += `</div>`;
+                    
+                    html += `<div class="exercise-list">`;
+                    workout.exercises.forEach((exercise, idx) => {
+                        const exerciseId = `day${workout.day}_ex${idx}`;
+                        const checked = progress[exerciseId] ? 'checked' : '';
+                        
+                        html += `<div class="exercise-item">`;
+                        html += `<input type="checkbox" ${checked} onchange="toggleExercise('${exerciseId}', ${workout.day})">`;
+                        html += `<div class="exercise-details">`;
+                        html += `<div class="exercise-name">${exercise.name}</div>`;
+                        html += `<div class="exercise-specs">${exercise.specs}</div>`;
+                        html += `</div>`;
+                        html += `</div>`;
+                    });
+                    html += `</div>`;
+                    html += `</div>`;
+                });
+                
+                html += `</div>`;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function toggleExercise(exerciseId, day) {
+            progress[exerciseId] = !progress[exerciseId];
+            
+            // Check if all exercises for the day are completed
+            const dayWorkout = workoutPlan.find(w => w.day === day);
+            const allCompleted = dayWorkout.exercises.every((_, idx) => progress[`day${day}_ex${idx}`]);
+            
+            if (allCompleted) {
+                progress[`day${day}`] = true;
+            } else {
+                progress[`day${day}`] = false;
+            }
+            
+            localStorage.setItem('workoutProgress', JSON.stringify(progress));
+            updateStats();
+            renderWorkoutSchedule();
+        }
+        
+        function updateStats() {
+            const completedDays = Object.keys(progress).filter(k => k.startsWith('day') && !k.includes('_ex') && progress[k]).length;
+            const totalWorkouts = workoutPlan.filter(w => !w.rest).length;
+            const completedWorkouts = workoutPlan.filter(w => !w.rest && progress[`day${w.day}`]).length;
+            
+            document.getElementById('daysCompleted').textContent = completedDays;
+            document.getElementById('workoutsCompleted').textContent = completedWorkouts;
+            document.getElementById('completionRate').textContent = Math.round((completedDays / 30) * 100) + '%';
+            
+            // Calculate streak
+            let streak = 0;
+            for (let i = 1; i <= 30; i++) {
+                if (progress[`day${i}`]) {
+                    streak++;
+                } else if (i <= Math.max(...Object.keys(progress).filter(k => k.startsWith('day') && !k.includes('_ex')).map(k => parseInt(k.replace('day', ''))))) {
+                    streak = 0;
+                }
+            }
+            document.getElementById('currentStreak').textContent = streak;
+        }
+        
+        function saveMeasurement() {
+            const measurement = {
+                date: document.getElementById('measurementDate').value,
+                weight: parseFloat(document.getElementById('weight').value),
+                waist: parseFloat(document.getElementById('waist').value),
+                hips: parseFloat(document.getElementById('hips').value),
+                thighs: parseFloat(document.getElementById('thighs').value)
+            };
+            
+            if (measurement.date && measurement.weight && measurement.waist && measurement.hips && measurement.thighs) {
+                measurements.push(measurement);
+                localStorage.setItem('measurements', JSON.stringify(measurements));
+                renderMeasurements();
+                
+                // Clear form
+                document.getElementById('measurementDate').value = '';
+                document.getElementById('weight').value = '';
+                document.getElementById('waist').value = '';
+                document.getElementById('hips').value = '';
+                document.getElementById('thighs').value = '';
+                
+                alert('Measurement saved successfully!');
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+        
+        function renderMeasurements() {
+            const container = document.getElementById('measurementHistory');
+            if (measurements.length === 0) {
+                container.innerHTML = '<p style="color: #666;">No measurements recorded yet.</p>';
+                return;
+            }
+            
+            let html = '<h3>Measurement History</h3>';
+            html += '<div style="overflow-x: auto;"><table style="width: 100%; border-collapse: collapse; margin-top: 15px;">';
+            html += '<tr style="background: #667eea; color: white;"><th style="padding: 10px;">Date</th><th>Weight (kg)</th><th>Waist (cm)</th><th>Hips (cm)</th><th>Thighs (cm)</th></tr>';
+            
+            measurements.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(m => {
+                html += `<tr style="border-bottom: 1px solid #ddd;">`;
+                html += `<td style="padding: 10px;">${m.date}</td>`;
+                html += `<td style="text-align: center;">${m.weight}</td>`;
+                html += `<td style="text-align: center;">${m.waist}</td>`;
+                html += `<td style="text-align: center;">${m.hips}</td>`;
+                html += `<td style="text-align: center;">${m.thighs}</td>`;
+                html += `</tr>`;
+            });
+            
+            html += '</table></div>';
+            
+            // Show progress
+            if (measurements.length >= 2) {
+                const latest = measurements[measurements.length - 1];
+                const first = measurements[0];
+                html += '<div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 10px;">';
+                html += '<h4 style="color: #2e7d32;">Progress Summary</h4>';
+                html += `<p>Weight Change: ${(latest.weight - first.weight).toFixed(1)} kg</p>`;
+                html += `<p>Waist Change: ${(latest.waist - first.waist).toFixed(1)} cm</p>`;
+                html += `<p>Hips Change: ${(latest.hips - first.hips).toFixed(1)} cm</p>`;
+                html += `<p>Thighs Change: ${(latest.thighs - first.thighs).toFixed(1)} cm</p>`;
+                html += '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderWorkoutSchedule();
+            updateStats();
+            renderMeasurements();
+            
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('measurementDate').value = today;
+        });
+    </script>
+</body>
+</html>
